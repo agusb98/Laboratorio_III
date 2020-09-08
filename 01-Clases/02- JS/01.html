@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Clase 01 JS</title>
+    <script type="text/javascript">
+        var num = 1;
+
+        if(num == "1"){
+            alert("Are same");
+        }
+        else{
+            alert("Arent same");
+        }
+
+        //Tener en cuenta que la funcion recibe 3 parametros, pero esto vale..
+        Saludar("Pepe");
+
+        function Saludar(name, surname, id){
+            
+            if(name != null){
+                alert ("Hola " + name + " !!!");
+            }
+            else{
+                var input = document.getElementById("txtName");
+                alert ("Hola " + input.value + " !!!");
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <input type="text" value="Ingrese Nombre" id="txtName"/>
+    <input type="button" value="Saludar" id="btnSaludar" onclick="Saludar()"/>
+</body>
