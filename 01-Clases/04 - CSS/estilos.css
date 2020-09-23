@@ -1,0 +1,12 @@
+/*Seteo estilo a todos los p*/
+#p1{
+    color: red;
+    background-color: black;
+    font-size: 18px;
+}
+
+#p2{
+    color: rgb(34, 33, 31);
+    background-color: rgb(25, 216, 206);
+    font-size: 1.2rem;
+}

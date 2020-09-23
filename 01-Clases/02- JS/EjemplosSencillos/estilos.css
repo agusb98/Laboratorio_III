@@ -1,0 +1,44 @@
+/*Seteo estilo a todos los p*/
+p{
+    color: red;
+    background-color: black;
+    font-size: 2rem;
+}
+
+/*Cambio el estilo a todos los p que tengan clase "ital"*/
+p.ital{
+    font-style: italic;
+}
+
+/*Seteo estilo por id = "usr y pass"*/
+#usr, #pass{
+    font-size: 20px;
+}
+
+span{
+    font-weight: bold;
+}
+
+#btnEnviar{
+    background-color: #4cAf50;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+#btnLimpiar{
+    background-color: #fb0101;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 5px;
+}

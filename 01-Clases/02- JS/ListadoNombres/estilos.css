@@ -1,0 +1,97 @@
+#btnGuardar, #btnCancelar{
+    position: relative;
+    background-color: #17961b;
+    border: none;
+    color: white;
+    padding: 0.8rem 3rem;
+    font-size: 1.2rem;
+    text-align: center;
+    margin: 0.5rem;
+    cursor: pointer;
+    border-radius: 0.3rem;
+}
+
+#btnAbrir{
+    position: absolute;
+    right: 4%;
+    bottom: 4%;
+    background-color: #68d483; 
+    margin: 8px 0;
+    cursor: pointer;
+    border-style: inset;
+    border-width: thin;
+    border-radius: 50%;
+    border-width: 0.17rem;
+    width: 5rem;
+    height: 5rem;
+    box-shadow: 0.9rem 0.6rem 0.5rem rgb(22, 22, 22);
+}
+
+#btnCancelar{
+    background-color: #d31a1a;  
+}
+
+#nombre, #apellido{
+    position: relative;
+    padding: 0.5rem 0.9rem;
+    margin: 0.5rem;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.contenedor{
+    height: 30%;    /*Ajusta tamanio del contenedor respecto de la pantalla*/
+    padding: 0.2rem 1rem;
+    position: absolute;
+    top: 25%;
+    left: 25%;
+    bottom: 25%;
+    right: 25%;
+    background-color: rgb(197, 197, 184);
+    border: outset;
+    border-radius: 0.5rem;
+    animation-name: Abrir;
+    animation-duration: 1s;
+    box-shadow: 0.5rem 0.5rem 0.5rem rgb(22, 22, 22);
+}
+
+/* The animation code */
+@keyframes Abrir {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td{
+    text-align: left;
+    padding: 8px;
+}
+
+th{
+    background-color: #55d675; 
+    color: white;
+}
+
+/*PONE LOS BOTONES SEPARADOS*/
+.btns{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end; 
+}
+
+tr:nth-child(even){
+    background-color: gainsboro;
+}
+
+.inputError{
+    border: 2px solid red;
+}
+
+.inputSinError{
+    border: 1px solid #ccc;
+}

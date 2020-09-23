@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script>
+        //Avisa cuando terminó de cargar la Página y luego utiliza la funcion Cargar
+        window.addEventListener("load", Cargar);
+
+        function Cargar()
+        {
+            var boton = document.getElementById("btnEnviar");
+
+            //tambien funciona reemplazando ValidarUsusario por function()
+            boton.addEventListener("click", ValidarUsuario);
+            
+            //Primero carga este Alert, luego va a la funcion ValidarUsuario
+            alert(boton.value);
+        }
+
+        function Click()
+        {
+            alert("Se hizo click");
+        }
+
+        function ValidarUsuario()
+        {
+            var user = document.getElementById("usr").value;
+            var pass = document.getElementById("pass").value;
+
+            if(user == "usuario" && pass == "1234"){
+                alert("Todo Correcto");
+            }
+            else{
+                alert("Error");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h1>Login</h1>
+    <label for="usr">Usuario</label><br>
+    <input type="text" name="pas" id="usr"><br>
+    <label for="pass">Contraseña</label><br>
+    <input type="password" name="pas" id="pass"><br>
+
+    <input type="button" id="btnEnviar" value="Enviar">
+
+</body>

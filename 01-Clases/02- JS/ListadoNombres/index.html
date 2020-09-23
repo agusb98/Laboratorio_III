@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="./funciones.js"></script>
+    <script src="./funciones2.js"></script>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+    <input type="button" id="btnAbrir" value="+">
+    <div class="contenedor" id="contenedor" hidden>
+        <form method="GET" action="./04.html">
+            <label for="nombre">Nombre</label><br>
+            <input type="text" class="inputSinError inputError" id="nombre" placeholder="Ingrese su nombre.."><br>
+            
+            <label for="apellido">Apellido</label><br>
+            <input type="text" class="inputSinError inputError" id="apellido" placeholder="Ingrese su apellido.."><br>
+            
+            <div class="btns">
+                <input type="button" id="btnGuardar" value="Guardar">
+                <input type="button" id="btnCancelar" value="Cancelar">
+            </div>
+        </form>
+    </div>
+
+    <h2>Lista de Personas</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Accion</th>
+            </tr>
+        </thead>
+        <tbody id="tcuerpo">
+            <tr>
+                <td>Agustin</td>
+                <td>Baez</td>
+                <td><a href="#">borrar</a></td>
+            </tr>
+            <tr>
+                <td>Leo</td>
+                <td>Castro</td>
+                <td><a href="#">borrar</a></td>
+            </tr>
+        </tbody>
+</body>
+</html>

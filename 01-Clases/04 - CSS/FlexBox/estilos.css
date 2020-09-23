@@ -1,0 +1,99 @@
+#contenedor1 {
+    display: flex;
+    background-color: rgb(219, 66, 66);
+    height: 50vh;
+}
+
+#contenedor1 div {
+    border:1px solid black;
+
+    padding:1rem;
+}
+/*flex-direction*/
+.row{
+    flex-direction: row;
+}
+
+.column{
+    flex-direction: column;
+}
+
+.row-reverse{
+    flex-direction: row-reverse;
+}
+
+.column-reverse{
+    flex-direction: column-reverse;
+}
+
+
+/*justify-content*/
+.flex-start{
+    justify-content: flex-start;
+}
+
+.flex-end{
+    justify-content: flex-end;
+}
+
+.center{
+    justify-content: center;
+}
+
+.space-between{
+    justify-content: space-between;
+}
+.space-around{
+    justify-content: space-around;
+}
+
+/*align-items*/
+.stretchA{
+    align-items: stretch;
+}
+
+.flex-startA{
+    align-items: flex-start;
+}
+
+.centerA{
+    align-items: center;
+}
+
+.flex-endA{
+    align-items: flex-end;
+}
+.baselineA{
+    align-items: baseline;
+}
+
+
+/*wra*/
+#contenedor2{
+    display: flex;
+    flex-wrap: wrap;    /*Permite que los objetos se muevan dependiendo tamaño de pantalla*/
+    /*justify-content: space-between;
+    align-content:flex-start
+    */
+    background-color: #000;  
+    height: 100vh;
+    color:white;
+    font-size:2rem;
+}
+.dWra{
+    background-color: #0078A6;
+    width:150px;
+    height:150px;
+}
+
+#contGrow{
+    display: flex;
+    background-color: #000;  
+    height: 100vh;
+    color:white;
+    font-size:2rem;
+}
+#contGrow div{
+    background-color: #0084B6;
+    border: solid black;
+}
