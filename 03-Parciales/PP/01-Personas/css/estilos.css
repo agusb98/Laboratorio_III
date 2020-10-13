@@ -1,0 +1,123 @@
+#h1 {
+    width: 100%;
+    left: 25%;
+    right: 25%;
+    font-family: 'Courier New', Courier, monospace;/*fuente*/
+    text-align: center;
+    background-color: rgb(208, 226, 222);
+}
+
+#tabla { 
+    color: rgb(145, 151, 151);
+    background-color: gainsboro;
+    border-collapse: collapse;  /*Los bordes de la tabla se pegarán (mejor aspecto) */
+    border: none;
+    padding: 10px;
+    padding-left: 20px;
+    font-family: 'Courier New', Courier, monospace;/*fuente*/
+    text-align: center;/*alineacion del texto*/
+    width: 100%; /*cuanto quiero que ocupe de la pantalla 50%*/   
+    justify-content: center;
+    z-index: -1; 
+}
+
+th{
+    color: rgb(0, 0, 0);
+    font: bolder;
+    border: ridge;
+}
+
+tr:nth-child(even){
+    background-color: rgb(208, 226, 222);
+}
+
+#th, td{
+    border-collapse: collapse;  /*Los bordes de la tabla se pegarán (mejor aspecto) */
+    border: none;
+    padding: 10px;
+    padding-left: 20px;
+}
+
+
+#contenedorAgregar {
+    position: fixed;
+    flex-wrap: wrap; 
+    
+    padding-left: 10px;
+    background: whitesmoke;
+    /*border-radius:10px;*/
+    width: 50%;
+    font-size: 20px;
+    font-family: 'Courier New', Courier, monospace;
+    box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
+    top:25%; /*a 25 de arriba*/ 
+    left:25%; /*a 25 de la izquierda*/
+    right:25%;/*same derecha*/
+    z-index: 998;
+}
+
+#divUser {
+    width: 100%;
+}
+
+#cerrar {
+    background-color: red;
+    border: 1px solid black;
+    color: white;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    width: 5%;
+}
+
+/*nota manejar la posicion desde los div, lo demas desde el boton*/
+#divCerrar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#btnModificar {
+    background-color: limegreen;
+    border: 1px solid black;
+    color: white;
+    width: 30%;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#btnAgregar {
+    background-color: limegreen;
+    border: 1px solid black;
+    color:white;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    width: 30%;
+}
+
+#divbotones {
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#btnEliminar {
+    background-color: red;
+    border: 1px solid black;
+    color: white;
+    width: 30%;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#loader {
+    opacity: 0.5;
+    flex-wrap: wrap; 
+    position: fixed; 
+    top:10%;
+    text-align: center;
+    width: 100%;
+    z-index: 999;
+}
