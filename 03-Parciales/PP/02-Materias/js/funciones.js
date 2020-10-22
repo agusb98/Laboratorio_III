@@ -1,115 +1,105 @@
-var globalTr="";
+var globalTr = "";
 var spinner = "";
 var http = new XMLHttpRequest();
-var contenedorAgregar="";
-var email ="";
+var contenedorAgregar = "";
+var email = "";
 var pass = "";
 
 window.onload = function () {
     pedirMateriasGet();
+
     var modificar = document.getElementById("btnModificar");
     spinner = document.getElementById("loader");
 
-    var cerrar = document.getElementById("cerrar");
+    var cerrar = document.getElementById("btnCerrar");
     cerrar.onclick = cerrarRecuadro;
+
     modificar.onclick = editarMateriaPost;
     modificar.addEventListener("click", cerrarRecuadro);
     
     var eliminar = document.getElementById("btnEliminar");
     eliminar.onclick = eliminarMateriaPost;
     eliminar.addEventListener("click", cerrarRecuadro);
-    
+
     /*
     var agregar = document.getElementById("btnAgregar");
     agregar.onclick = nuevaMateriaPostConParametros;
     agregar.addEventListener("click", cerrarRecuadro);
-    */
 
-    /*
     email = document.getElementById("email");
     pass = document.getElementById("pass");
     var btnLogin = document.getElementById("btnLogin");
-    btnLogin.onclick = log;
+    btnLogin.onclick = Log;
     */
 }
 
-function realizarPeticionGet(metodo, url, funcion) {
+function peticionGet(metodo, url, funcion) {
     spinner.hidden = false;
     http.onreadystatechange = funcion;
     http.open(metodo, url, true);
     http.send();
 }
 
-function realizarPeticionPost(metodo, url, funcion) {
+function peticionPostEditar(metodo, url, funcion) {
     spinner.hidden = false;
+    http.onreadystatechange = funcion;
     http.open(metodo, url, true);   
     http.setRequestHeader("Content-Type","application/json");
-    
-    if (document.getElementById("nombre").value.length > 6 && 
-    document.getElementById("cuatrimestre").value < 5 && 
-    document.getElementById("cuatrimestre").value > 0 &&
-    document.getElementById("fechaFinal").value) 
-    {
-        var auxFecha = (document.getElementById("fechaFinal").value).split('-');
+
+    if(checkName(document.getElementById("nombre").value)) {
+        var fechaFinal = (document.getElementById("fechaFinal").value).split('-');
+        var fechaFinalCorrecta = fechaFinal[2] + '/' + fechaFinal[1] + '/' + fechaFinal[0];
+
         var data = {
             id:document.getElementById("id").value,
             nombre:document.getElementById("nombre").value,
             cuatrimestre:document.getElementById("cuatrimestre").value,
-            fechaFinal:auxFecha[2] + '/' + auxFecha[1] + '/' + auxFecha[0],
+            fechaFinal:fechaFinalCorrecta,
             turno:document.querySelector('input[name="gender"]:checked').value
         };
         http.send(JSON.stringify(data));
-        http.onreadystatechange = funcion;
     }
-    else {
-        alert ("ERROR: en ingreso de datos");
-        spinner.hidden = true;
-    } 
 }
 
-function realizarPeticionPostEliminar(metodo, url, funcion) {
+function peticionPostEliminar(metodo, url, funcion) {
     spinner.hidden = false;
     http.onreadystatechange = funcion;
     http.open(metodo, url, true);
-    http.setRequestHeader("Content-Type", "application/json");
+    http.setRequestHeader("Content-Type","application/json");
     var data = {id:document.getElementById("id").value};
     http.send(JSON.stringify(data));
 }
 
-function realizarPeticionPostNueva(metodo, url, funcion) {
+function peticionPostNueva(metodo, url, funcion) {
     spinner.hidden = false;
     http.onreadystatechange = funcion;
     http.open(metodo, url, true);
     http.setRequestHeader("Content-Type","application/json");
-    if (document.getElementById("nombre").value.length > 6 && 
-        document.getElementById("cuatrimestre").value < 5 && 
-        document.getElementById("cuatrimestre").value > 0 &&
-        document.getElementById("fechaFinal").value) 
-    {
-        var auxFecha = (document.getElementById("fechaFinal").value).split('-');
+
+    if(checkName(document.getElementById("nombre").value)) {
+        var fechaFinal = (document.getElementById("fechaFinal").value).split('-');
+        var fechaFinalCorrecta = fechaFinal[2] + '/' + fechaFinal[1] + '/' + fechaFinal[0];
+
         var data = {
             nombre:document.getElementById("nombre").value,
             cuatrimestre:document.getElementById("cuatrimestre").value,
-            fechaFinal:auxFecha[2] + '/' + auxFecha[1] + '/' + auxFecha[0],
+            fechaFinal:fechaFinalCorrecta,
             turno:document.querySelector('input[name="gender"]:checked').value
         };
         http.send(JSON.stringify(data));
     }
-    else {
-        alert("ERROR: en ingreso de datos");
-        spinner.hidden = true;
-    }
 }
 
-function log() {
-    realizarLogin("POST","http://localhost:3000/login", login);
+/*
+function Log() {
+    RealizarLogin("POST","http://localhost:3000/login", login);
 }
 
-function realizarLogin(metodo, url, funcion) {
+function RealizarLogin(metodo, url, funcion) {
     http.onreadystatechange = funcion;
     http.open(metodo, url, true);
     http.setRequestHeader("Content-Type","application/json");
-    var data = {email:email.value,password:pass.value};
+    var data = {email:email.value, password:pass.value};
     http.send(JSON.stringify(data));
 }
 
@@ -122,25 +112,26 @@ function login() {
 function loguear(login) {
     console.log(login.type);
 }
+*/
 
-function callback() {
+function materias() {
     if (http.readyState == 4 && http.status == 200) {
         armarGrilla(JSON.parse(http.responseText)); 
         spinner.hidden = true;            
     }
 }
 
-function respuesta() {
+function editar() {
     if (http.readyState == 4 && http.status == 200) { 
         modificar(JSON.parse(http.responseText));
         spinner.hidden = true; 
     }
 }
 
-function dMateria() {
+function eliminarMateria() {
     if (http.readyState == 4 && http.status == 200) {
         eliminar(JSON.parse(http.responseText));
-        spinner.hidden = true; 
+        spinner.hidden=true; 
     }
 }
 
@@ -152,21 +143,19 @@ function nueva() {
 }
 
 function pedirMateriasGet() {
-    realizarPeticionGet("GET", "http://localhost:3000/materias", callback);
+    peticionGet("GET","http://localhost:3000/materias", materias);
 }
-
 
 function nuevaMateriaPostConParametros() {
-    realizarPeticionPostNueva("POST","http://localhost:3000/nueva", nueva);
+    peticionPostNueva("POST","http://localhost:3000/nueva", nueva);
 }
 
-
 function editarMateriaPost() {
-    realizarPeticionPost("POST", "http://localhost:3000/editar", respuesta);
+    peticionPostEditar("POST","http://localhost:3000/editar", editar);
 }
 
 function eliminarMateriaPost() {
-    realizarPeticionPostEliminar("POST", "http://localhost:3000/eliminar", dMateria);
+    peticionPostEliminar("POST","http://localhost:3000/eliminar", eliminarMateria);
 }
 
 function armarGrilla(jsonObj) {
@@ -175,7 +164,7 @@ function armarGrilla(jsonObj) {
     for(var i = 0; i < jsonObj.length; i++) {
         var tr = document.createElement("tr");
         var td = document.createElement("td");
-        
+
         td.appendChild(document.createTextNode(jsonObj[i].nombre));
         tr.appendChild(td);
 
@@ -209,8 +198,7 @@ function abrirRecuadro(e) {
     globalTr = tr;//la solucion estaba aca
 
     document.getElementById("nombre").value = tr.childNodes[0].innerHTML;
-    document.getElementById("cuatrimestre").value = tr.childNodes[1].innerHTML; 
-    
+    document.getElementById("cuatrimestre").value = tr.childNodes[1].innerHTML;
     document.getElementById("fechaFinal").value = tr.childNodes[2].innerHTML;
     document.getElementById("id").value = tr.childNodes[4].innerHTML;
             
@@ -236,7 +224,7 @@ function agregar(materia){
     var tabla = document.getElementById("tabla");
     var tr = document.createElement("tr");
     var td = document.createElement("td");
-
+    
     td.appendChild(document.createTextNode(materia.nombre));
     tr.appendChild(td);
 
@@ -267,4 +255,13 @@ function eliminar() {
 function cerrarRecuadro() {
     var recuadro = document.getElementById("contenedorAgregar");
     recuadro.hidden = true;
+}
+
+function checkName(nombre) {
+    if(nombre.length < 6) {
+        document.getElementById("nombre").className = "classError";
+        alert("ERROR: en el ingreso de datos");
+        return false;
+    }     
+    return true;           
 }

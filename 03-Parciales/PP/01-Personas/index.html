@@ -4,11 +4,11 @@
         <meta charset="UTF-8">
         <title> Parcial tomado en el 2020</title>
         <link rel="stylesheet" href="css/estilos.css"/> 
-        <script type = "text/javascript" src="js/funciones.js" ></script>
+        <script type="text/javascript" src="js/funciones.js" ></script>
     </head>
     <body>
-        <div class = "container-fluid" id= "contBtn" >
-            <h1 id = "h1">Lista de Personas</h1>   
+        <div class="container-fluid" id="contBtn" >
+            <h1 id="h1">Lista de Personas</h1>   
         </div>
         
         <table id="tabla">
@@ -20,47 +20,55 @@
                 <th style="display:none">ID</th>
             </tr>
         </table>
-        <div class = "container-fluid" id= "contenedorAgregar" hidden=true>
-            <div id = "divCerrar">
-                <input type="button" value = "x" id = "cerrar" name="cerrar">
+        <div class="container-fluid" id="contenedorAgregar" hidden=true>
+            <div id="divCerrar">
+                <input type="button" value="x" id="cerrar" name="cerrar">
                 <br>
-                </div>
-            <div id = "divNombre">
+            </div>
+            <div id="divNombre">
                 Nombre:
-                <input type="text" id = "nombre" name="nombre">
+                <input type="text" id="nombre" name="nombre" class="inputSinError inputError">
                 <br>
             </div>
-            <div id = "divApellido">
+            <div id="divApellido">
                 Apellido:
-                <input type="text" id="apellido" name="apellido">
+                <input type="text" id="apellido" name="apellido" class="inputSinError inputError">
                 <br>
             </div>
-            <div id = "divFecha">
+            <div id="divFecha">
                 Fecha:
-                <input type="date" max="2020-10-13" id = "fecha" name="fecha">
+                <input type="date" max="2020-10-13" id="fecha" name="fecha" class="inputSinError inputError">
             <br>
             </div>
-            <div id = "divSexo">
+            <div id="divSexo">
                 Sexo:
-                <input type="radio" value= "Female" id = "female" name="gender">
+                <input type="radio" value="Female" id="female" name="gender">
                 <label for="female">female</label>
                 
-                <input type="radio" value = "Male" id = "male" name="gender">
+                <input type="radio" value="Male" id="male" name="gender">
                 <label for="male">male</label>
             </div>
-            <div id = "divId">
-                Id:
-                <input type="text" id = "id" name="id" readonly="readonly">
+            <div id="divId">
+                <input type="hidden" id="id" name="id" readonly="readonly">
                 <br>
             </div>
-            <div id = "divbotones">
-                <input type="button" value = "Eliminar" id = "btnEliminar" name="btnEliminar">
-                <input type="button" value = "Modificar" id = "btnModificar" name="btnModificar">
-                <input type="button" value="Agregar persona" id ="btnAgregar">
+            <div id="divbotones">
+                <input type="button" value="Eliminar" id="btnEliminar" name="btnEliminar">
+                <input type="button" value="Modificar" id="btnModificar" name="btnModificar">
+                <input type="button" value="Agregar" id ="btnAgregar">
             </div>
         </div>
         <div class="loader" id="loader"hidden=true>
-            <input type = "image" src="img/spinner.gif">
+            <input type="image" src="img/spinner.gif">
+        </div>
+        <div class = "login" id = "login">
+            Email:
+            <input type ="text" id="email">
+            <br>
+            Contraseña:
+            <input type = "text" id = "pass">
+            <br>
+            <input type = "button" id ="btnLogin" value = "Login">
         </div>
     </body>
 </html>

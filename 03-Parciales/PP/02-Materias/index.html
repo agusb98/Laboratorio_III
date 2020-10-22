@@ -4,63 +4,60 @@
         <meta charset="UTF-8">
         <title> Parcial tomado en el 2020</title>
         <link rel="stylesheet" href="css/estilos.css"/> 
-        <script type = "text/javascript" src="js/funciones.js" ></script>
+        <script type="text/javascript" src="js/funciones.js" ></script>
     </head>
     <body>
-        <div class = "container-fluid" id= "contBtn" >
-            <h1 id = "h1">Lista de Materias</h1>   
+        <div class="container-fluid" id="contBtn" >
+            <h1 id="h1">Lista de Materias</h1> 
+            <br>  
         </div>
         
         <table id="tabla">
             <tr>
                 <th>Nombre</th>
                 <th>Cuatrimestre</th>
-                <th>FechaFinal</th>
+                <th>Fecha Final</th>
                 <th>Turno</th>
                 <th style="display:none">ID</th>
             </tr>
         </table>
-        <div class = "container-fluid" id= "contenedorAgregar" hidden=true>
-            <div id = "divCerrar">
-                <input type="button" value = "x" id = "cerrar" name="cerrar">
+        <div class="container-fluid" id="contenedorAgregar" hidden=true>
+            <div id="divCerrar">
+                <input type="button" value="x" id="btnCerrar" name="cerrar">
                 <br>
-                </div>
-            <div id = "divNombre">
+            </div>
+            <div id="divNombre">
                 Nombre:
-                <input type="text" id = "nombre" name="nombre">
-                <br>
+                <input type="text" id="nombre" name="nombre" class="inputSinError inputError">
             </div>
-            <div id = "divCuatrimestre">
                 Cuatrimestre:
-                <input type="text" id="cuatrimestre" name="cuatrimestre">
-                <br>
+            <div id="divCuatrimestre">
+                <input type="select" id="cuatrimestre" name="cuatrimestre" disabled="true">
             </div>
-            <div id = "divFechaFinal">
+            <div id="divFecha">
                 FechaFinal:
-                <input type="date" max="2020-5-21" id= "fechaFinal" name="fechaFinal" placeholder="dd-mm-yyyy" value="">
+                <input type="date" min="16/10/2020" id="fechaFinal" name="fechaFinal" class="inputError">
             <br>
             </div>
-            <div id = "divTurno">
+            <div id="divTurno">
                 Turno:
-                <input type="radio" value= "Mañana" id = "mañana" name="gender">
-                <label for="mañana">mañana</label>
-                
-                <input type="radio" value = "Noche" id = "noche" name="gender">
+                <input type="radio" value="Noche" id="noche" name="gender">
                 <label for="noche">noche</label>
+                
+                <input type="radio" value="Mañana" id="mañana" name="gender">
+                <label for="mañana">mañana</label>
             </div>
-            <div id = "divId">
-                Id:
-                <input type="text" id = "id" name="id" readonly="readonly">
+            <div id="divId">
+                <input type="hidden" id="id" name="id" readonly="readonly">
                 <br>
             </div>
-            <div id = "divbotones">
-                <input type="button" value = "Eliminar" id = "btnEliminar" name="btnEliminar">
-                <input type="button" value = "Modificar" id = "btnModificar" name="btnModificar">
-                <!-- <input type="button" value = "Agregar" id = "btnAgregar" name="btnAgregar"> -->
+            <div id="divbotones">
+                <input type="button" value="Eliminar" id="btnEliminar" name="btnEliminar">
+                <input type="button" value="Modificar" id="btnModificar" name="btnModificar">
             </div>
         </div>
-        <div class="loader" id="loader"hidden=true>
-            <input type = "image" src="img/spinner.gif">
+        <div class="loader" id="loader" hidden=true>
+            <input type="image" src="img/spinner.gif">
         </div>
     </body>
 </html>

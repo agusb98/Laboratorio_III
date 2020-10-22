@@ -21,7 +21,7 @@
     z-index: -1; 
 }
 
-th{
+th {
     color: rgb(0, 0, 0);
     font: bolder;
     border: ridge;
@@ -38,15 +38,12 @@ tr:nth-child(even){
     padding-left: 20px;
 }
 
-
 #contenedorAgregar {
     position: fixed;
     flex-wrap: wrap; 
-    
     padding-left: 10px;
     background: whitesmoke;
-    /*border-radius:10px;*/
-    width: 50%;
+    width: 35%;
     font-size: 20px;
     font-family: 'Courier New', Courier, monospace;
     box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
@@ -56,17 +53,25 @@ tr:nth-child(even){
     z-index: 998;
 }
 
-#divUser {
-    width: 100%;
+#nombre, #apellido {
+    width: 40%;
+}
+
+.inputError{
+    border: 2px solid red;
+}
+
+.inputSinError{
+    border: 1px solid #ccc;
 }
 
 #cerrar {
     background-color: red;
-    border: 1px solid black;
+    border: none;
     color: white;
     text-align: center;
     font-size: 16px;
-    margin: 4px 2px;
+    margin: 4px 4px;
     cursor: pointer;
     width: 5%;
 }
@@ -77,39 +82,32 @@ tr:nth-child(even){
     justify-content: flex-end;
 }
 
-#btnModificar {
-    background-color: limegreen;
-    border: 1px solid black;
+#btnAgregar, #btnModificar, #btnEliminar {
+    border: none;
     color: white;
     width: 30%;
     text-align: center;
     font-size: 16px;
     cursor: pointer;
+}
+
+#divbotones {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
 
 #btnAgregar {
     background-color: limegreen;
-    border: 1px solid black;
-    color:white;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    width: 30%;
 }
 
-#divbotones {
-    justify-content: space-between;
-    flex-direction: row;
+#btnModificar {
+    background-color: limegreen;
 }
 
 #btnEliminar {
     background-color: red;
-    border: 1px solid black;
-    color: white;
-    width: 30%;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
 }
 
 #loader {
