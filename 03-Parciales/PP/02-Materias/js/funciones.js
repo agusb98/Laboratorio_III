@@ -1,267 +1,251 @@
-var globalTr = "";
-var spinner = "";
-var http = new XMLHttpRequest();
-var contenedorAgregar = "";
-var email = "";
-var pass = "";
+var http = new XMLHttpRequest;
+var arrayObj = new Array();
 
 window.onload = function () {
-    pedirMateriasGet();
+    getMaterias("GET", "http://localhost:3000/materias", GetGrilla);
 
-    var modificar = document.getElementById("btnModificar");
-    spinner = document.getElementById("loader");
-
-    var cerrar = document.getElementById("btnCerrar");
-    cerrar.onclick = cerrarRecuadro;
-
-    modificar.onclick = editarMateriaPost;
-    modificar.addEventListener("click", cerrarRecuadro);
+    var eventoClick = document.getElementById("tCuerpo");
+    eventoClick.addEventListener("dblclick", GetMateria);
     
-    var eliminar = document.getElementById("btnEliminar");
-    eliminar.onclick = eliminarMateriaPost;
-    eliminar.addEventListener("click", cerrarRecuadro);
-
-    /*
-    var agregar = document.getElementById("btnAgregar");
-    agregar.onclick = nuevaMateriaPostConParametros;
-    agregar.addEventListener("click", cerrarRecuadro);
-
-    email = document.getElementById("email");
-    pass = document.getElementById("pass");
-    var btnLogin = document.getElementById("btnLogin");
-    btnLogin.onclick = Log;
-    */
+    var btnCerrar = document.getElementById("btnCerrar");
+    btnCerrar.addEventListener("click", closeHeader);
+    
+    var btnEliminar = document.getElementById("btnEliminar");
+    btnEliminar.addEventListener("click", Eliminar);
+    
+    var btnModificar = document.getElementById("btnModificar");
+    btnModificar.addEventListener("click", Modificar);
+    
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.addEventListener("click", Agregar);
 }
 
-function peticionGet(metodo, url, funcion) {
-    spinner.hidden = false;
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);
+function getMaterias(verb, link, action){
+    http.onreadystatechange = action;
+    http.open(verb, link, true);
     http.send();
 }
 
-function peticionPostEditar(metodo, url, funcion) {
-    spinner.hidden = false;
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);   
-    http.setRequestHeader("Content-Type","application/json");
-
-    if(checkName(document.getElementById("nombre").value)) {
-        var fechaFinal = (document.getElementById("fechaFinal").value).split('-');
-        var fechaFinalCorrecta = fechaFinal[2] + '/' + fechaFinal[1] + '/' + fechaFinal[0];
-
-        var data = {
-            id:document.getElementById("id").value,
-            nombre:document.getElementById("nombre").value,
-            cuatrimestre:document.getElementById("cuatrimestre").value,
-            fechaFinal:fechaFinalCorrecta,
-            turno:document.querySelector('input[name="gender"]:checked').value
-        };
-        http.send(JSON.stringify(data));
-    }
-}
-
-function peticionPostEliminar(metodo, url, funcion) {
-    spinner.hidden = false;
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);
-    http.setRequestHeader("Content-Type","application/json");
-    var data = {id:document.getElementById("id").value};
-    http.send(JSON.stringify(data));
-}
-
-function peticionPostNueva(metodo, url, funcion) {
-    spinner.hidden = false;
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);
-    http.setRequestHeader("Content-Type","application/json");
-
-    if(checkName(document.getElementById("nombre").value)) {
-        var fechaFinal = (document.getElementById("fechaFinal").value).split('-');
-        var fechaFinalCorrecta = fechaFinal[2] + '/' + fechaFinal[1] + '/' + fechaFinal[0];
-
-        var data = {
-            nombre:document.getElementById("nombre").value,
-            cuatrimestre:document.getElementById("cuatrimestre").value,
-            fechaFinal:fechaFinalCorrecta,
-            turno:document.querySelector('input[name="gender"]:checked').value
-        };
-        http.send(JSON.stringify(data));
-    }
-}
-
-/*
-function Log() {
-    RealizarLogin("POST","http://localhost:3000/login", login);
-}
-
-function RealizarLogin(metodo, url, funcion) {
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);
-    http.setRequestHeader("Content-Type","application/json");
-    var data = {email:email.value, password:pass.value};
-    http.send(JSON.stringify(data));
-}
-
-function login() {
+function GetGrilla() {
+    ShowSpinner(true);
     if (http.readyState == 4 && http.status == 200) {
-        loguear(JSON.parse(http.responseText)); 
+        armarGrilla(JSON.parse(http.responseText));
+        ShowSpinner(false);
     }
-}
-
-function loguear(login) {
-    console.log(login.type);
-}
-*/
-
-function materias() {
-    if (http.readyState == 4 && http.status == 200) {
-        armarGrilla(JSON.parse(http.responseText)); 
-        spinner.hidden = true;            
-    }
-}
-
-function editar() {
-    if (http.readyState == 4 && http.status == 200) { 
-        modificar(JSON.parse(http.responseText));
-        spinner.hidden = true; 
-    }
-}
-
-function eliminarMateria() {
-    if (http.readyState == 4 && http.status == 200) {
-        eliminar(JSON.parse(http.responseText));
-        spinner.hidden=true; 
-    }
-}
-
-function nueva() {
-    if (http.readyState == 4 && http.status == 200) {
-        agregar(JSON.parse(http.responseText));
-        spinner.hidden = true; 
-    }
-}
-
-function pedirMateriasGet() {
-    peticionGet("GET","http://localhost:3000/materias", materias);
-}
-
-function nuevaMateriaPostConParametros() {
-    peticionPostNueva("POST","http://localhost:3000/nueva", nueva);
-}
-
-function editarMateriaPost() {
-    peticionPostEditar("POST","http://localhost:3000/editar", editar);
-}
-
-function eliminarMateriaPost() {
-    peticionPostEliminar("POST","http://localhost:3000/eliminar", eliminarMateria);
 }
 
 function armarGrilla(jsonObj) {
-    var tabla = document.getElementById("tabla");
+    tCuerpo = document.getElementById("tCuerpo");
+    console.log("Cantidad de Elementos: ", jsonObj.length);
 
-    for(var i = 0; i < jsonObj.length; i++) {
-        var tr = document.createElement("tr");
-        var td = document.createElement("td");
+    for (var i = 0; i < jsonObj.length; i++) {
+        var row = document.createElement("tr");
+        row.setAttribute("idMaterias", jsonObj[i].id); 
 
-        td.appendChild(document.createTextNode(jsonObj[i].nombre));
-        tr.appendChild(td);
+        var cel0 = document.createElement("td");
+        var text0 = document.createTextNode(jsonObj[i].id);
+        cel0.appendChild(text0);
+        row.appendChild(cel0);
+        cel0.hidden = true;
 
-        var td2 = document.createElement("td");
-        td2.appendChild(document.createTextNode(jsonObj[i].cuatrimestre));
-        tr.appendChild(td2);
+        var cel1 = document.createElement("td");
+        var text1 = document.createTextNode(jsonObj[i].nombre);
+        cel1.appendChild(text1);
+        row.appendChild(cel1);
 
-        var td3 = document.createElement("td");
-        td3.appendChild(document.createTextNode(jsonObj[i].fechaFinal));
-        tr.appendChild(td3);
+        var cel2 = document.createElement("td");
+        var text2 = document.createTextNode(jsonObj[i].cuatrimestre);
+        cel2.appendChild(text2);
+        row.appendChild(cel2);
 
-        var td4 = document.createElement("td");
-        td4.appendChild(document.createTextNode(jsonObj[i].turno));
-        tr.appendChild(td4); 
+        var cel3 = document.createElement("td");
+        var text3 = document.createTextNode(jsonObj[i].fechaFinal);
+        cel3.appendChild(text3);
+        row.appendChild(cel3);
 
-        var td5 = document.createElement("td");
-        td5.appendChild(document.createTextNode(jsonObj[i].id));
-        td5.hidden = true;
-        tr.appendChild(td5);
+        var cel4 = document.createElement("td");
+        var text4 = document.createTextNode(jsonObj[i].turno);
+        cel4.appendChild(text4);
+        row.appendChild(cel4);
 
-        tr.addEventListener("dblclick", abrirRecuadro);
-        tabla.appendChild(tr);
-    }
-}
-        
-function abrirRecuadro(e) {
-    var recuadro = document.getElementById("contenedorAgregar");
-    contenedorAgregar = recuadro;
-    recuadro.hidden = false;
-    var tr = e.target.parentNode;
-    globalTr = tr;//la solucion estaba aca
-
-    document.getElementById("nombre").value = tr.childNodes[0].innerHTML;
-    document.getElementById("cuatrimestre").value = tr.childNodes[1].innerHTML;
-    document.getElementById("fechaFinal").value = tr.childNodes[2].innerHTML;
-    document.getElementById("id").value = tr.childNodes[4].innerHTML;
-            
-    if (tr.childNodes[3].innerHTML == "Mañana") {
-        document.getElementById("mañana").checked = true;
-        document.getElementById("noche").checked = false;
-    }
-    else if (tr.childNodes[3].innerHTML == "Noche") {
-        document.getElementById("noche").checked = true;
-        document.getElementById("mañana").checked = false;
+        tCuerpo.appendChild(row);
     }
 }
 
-function modificar(materia) {
-    globalTr.childNodes[0].innerHTML = materia.nombre;
-    globalTr.childNodes[1].innerHTML = materia.cuatrimestre;
-    globalTr.childNodes[2].innerHTML= materia.fechaFinal;
-    globalTr.childNodes[3].innerHTML = materia.turno;
-    spinner.hidden = true;
-}
-
-function agregar(materia){
-    var tabla = document.getElementById("tabla");
-    var tr = document.createElement("tr");
-    var td = document.createElement("td");
+function GetMateria(e) {
+    obj = e.target.parentNode;
+    document.getElementById("nombre").value = obj.childNodes[1].innerHTML;
+    document.getElementById("cuatrimestre").value = obj.childNodes[2].innerHTML;
     
-    td.appendChild(document.createTextNode(materia.nombre));
-    tr.appendChild(td);
+    var arrayFechaFinal = obj.childNodes[3].innerHTML.split("/");
+    var auxFecha = arrayFechaFinal[2] + "-" + arrayFechaFinal[1] + "-" + arrayFechaFinal[0];
+    document.getElementById("fechaFinal").value = auxFecha;
 
-    var td2 = document.createElement("td");
-    td2.appendChild(document.createTextNode(materia.cuatrimestre));
-    tr.appendChild(td2);
+    if (obj.childNodes[4].innerHTML == "Mañana") {
+        document.getElementById("mañana").checked = true;
+    } 
+    else { document.getElementById("noche").checked = true; }
 
-    var td3 = document.createElement("td");
-    td3.appendChild(document.createTextNode(materia.fechaFinal));
-    tr.appendChild(td3);
-
-    var td4 = document.createElement("td");
-    td4.appendChild(document.createTextNode(materia.turno));
-    tr.appendChild(td4); 
-
-    var td5 = document.createElement("td");
-    td5.appendChild(document.createTextNode(materia.id));
-    td5.hidden = true;
-            
-    tr.addEventListener("dblclick", abrirRecuadro); 
-    tabla.appendChild(tr);
+    rowGlobal = obj;
+    ShowHeader(true);
 }
 
-function eliminar() {
-    globalTr.remove();
+function Eliminar(e) {
+    if(confirm("Desea efectuar los cambios?")){
+        ShowSpinner(true);
+        ShowHeader(false);
+        
+        http.onreadystatechange = function () {
+            if (http.readyState == 4 && http.status == 200) {
+                rowGlobal.remove();
+                ShowSpinner(true);
+            }
+        }
+        http.open("POST", "http://localhost:3000/eliminar", true);
+        http.setRequestHeader("Content-Type", "application/json");
+        
+        var json = { "id": rowGlobal.getAttribute("idMaterias") };
+        http.send(JSON.stringify(json));
+    }
 }
 
-function cerrarRecuadro() {
-    var recuadro = document.getElementById("contenedorAgregar");
-    recuadro.hidden = true;
+function Agregar(e) {
+    var data = Materia_GetElementsById();
+
+    if (checkNombre(data[0])) {
+        if (checkFechaFinal(data[2])) {
+            if(confirm("Desea efectuar los cambios?")) {
+                ShowSpinner(true);
+                ShowHeader(false);
+                endPoint("POST", "http://localhost:3000/nueva", formatParams("POST", data), agregarMateria); 
+            } 
+        }
+    }
 }
 
-function checkName(nombre) {
-    if(nombre.length < 6) {
+function agregarMateria() {
+    if (http.readyState === 4 && http.status === 200) {
+        ShowSpinner(false);
+    }
+}
+
+function Modificar(e) {
+    var data = Materia_GetElementsById();
+
+    if (checkNombre(data[0])) {
+        if (checkFechaFinal(data[2])) {
+            if(confirm("Desea efectuar los cambios?")) {
+                ShowSpinner(true);
+                ShowHeader(false);
+                endPoint("POST", "http://localhost:3000/editar", formatParams("POST", data), modificarMateria); 
+            } 
+        }
+    }
+}
+
+function endPoint(verb, route, params, callback) {
+    if (verb === "GET") {
+        http.onreadystatechange = callback;
+        http.open(verb, route + params, true);
+        request.send();
+    } 
+    else if (verb === "POST") {
+        http.onreadystatechange = callback;
+        http.open(verb, route, true);
+        http.setRequestHeader("Content-type", "application/json");
+        http.send(params);
+    }
+}
+
+function modificarMateria() {
+    if (http.readyState === 4 && http.status === 200) {
+        var id = document.getElementById("id");
+        var body = document.getElementById("tCuerpo");
+        var idToModify = id.rowId;
+        var rows = body.rows;
+        
+        for (let index = 0; index < rows.length; index++) {
+            if (rows[index].id == idToModify) {
+                rows[index].firstElementChild.textContent = arrayObj[0];
+                rows[index].firstElementChild.nextElementSibling.textContent = arrayObj[1];
+                rows[index].firstElementChild.nextElementSibling.nextElementSibling.textContent = setFormatDate(arrayObj[2], "-", "/");
+                rows[index].firstElementChild.nextElementSibling.nextElementSibling.nextElementSibling.textContent = arrayObj[3];
+            }
+        }
+        ShowSpinner(false);
+    }
+}
+
+function formatParams(verb, array) {
+    if(verb == "GET"){
+        return "?usr=" + array[0].value + "&pass=" + array[1].value;
+    }
+    else if(verb == "POST"){
+        var json = {
+                id: rowGlobal.getAttribute("idMaterias"),
+                nombre: array[0],
+                cuatrimestre: array[1],
+                fechaFinal: array[2],
+                turno: array[3]
+            }
+        return JSON.stringify(json);
+    }
+}
+
+function Materia_GetElementsById(){
+    var array = new Array();
+
+    array[0] = document.getElementById("nombre").value;
+    array[1] = document.getElementById("cuatrimestre").value;
+    array[2] = setFormatDate(document.getElementById("fechaFinal").value, "-", "/");
+
+    var radio = document.getElementsByName("turno");
+    for (i = 0; i < radio.length; i++) {
+        if (radio[i].checked) { array[3] = "Noche"; }
+        else{ array[3] = "Mañana"; }
+    }
+
+    arrayObj = array;
+    return array;
+}
+
+function ShowSpinner(status = true){
+    if(status) { document.getElementById("spinner").hidden = false; }
+    else{ document.getElementById("spinner").hidden = true; }
+}
+
+function ShowHeader(status = true){
+    if(status) { document.getElementById("contenedor").hidden = false; }
+    else{ document.getElementById("contenedor").hidden = true; }
+}
+
+function closeHeader(){
+    ShowHeader(false);
+}
+
+function checkNombre(nombre) {
+    if(nombre.length >= 6){
+        document.getElementById("nombre").className = "classSinError";
+        return true;
+    }
+    else{
         document.getElementById("nombre").className = "classError";
-        alert("ERROR: en el ingreso de datos");
-        return false;
-    }     
-    return true;           
+        return false;   
+    }
+}
+
+function checkFechaFinal(fecha) {
+    if(new Date(fecha) > new Date()){
+        document.getElementById("fechaFinal").className = "classSinError";
+        return true;
+    }
+    else{
+        document.getElementById("fechaFinal").className = "classError";
+        return false;   
+    }
+}
+
+function setFormatDate(date, splitBy, printBy){
+    var dateAux = date.split(splitBy);
+    return dateAux[2] + printBy + dateAux[1] + printBy + dateAux[0];
 }

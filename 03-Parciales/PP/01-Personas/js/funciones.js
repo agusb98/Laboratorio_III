@@ -1,255 +1,307 @@
-var globalTr="";
-var spinner = "";
-var http = new XMLHttpRequest();
-var contenedorAgregar="";
-var email ="";
-var pass = "";
+var http = new XMLHttpRequest;
+var trClick;
+var rowGlobal;
 
 window.onload = function () {
-    pedirPersonasGet();
+    document.getElementById("spinner").hidden = false;
 
-    var modificar = document.getElementById("btnModificar");
-    spinner = document.getElementById("loader");
-
-    var cerrar = document.getElementById("cerrar");
-    cerrar.onclick = CerrarRecuadro;
-
-    modificar.onclick = editarPersonaPost;
-    modificar.addEventListener("click", CerrarRecuadro);
-    
-    var eliminar = document.getElementById("btnEliminar");
-    eliminar.onclick = eliminarPersonaPost;
-    eliminar.addEventListener("click", CerrarRecuadro);
-
-    var agregar = document.getElementById("btnAgregar");
-    agregar.onclick = nuevaPersonaPostConParametros;
-    agregar.addEventListener("click", CerrarRecuadro);
-
-    email = document.getElementById("email");
-    pass = document.getElementById("pass");
-    var btnLogin = document.getElementById("btnLogin");
-    btnLogin.onclick = Log;
-}
-
-function peticionGet(metodo, url, funcion) {
-    spinner.hidden = false;
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);
+    http.onreadystatechange = GetGrilla;
+    http.open("GET", "http://localhost:3000/personas", true);
     http.send();
+
+    var eventoClick = document.getElementById("tCuerpo");
+    eventoClick.addEventListener("dblclick", GetPersona);
+
+    var btnCerrar = document.getElementById("btnCerrar");
+    btnCerrar.addEventListener("click", HideHeader);
+
+    var btnEliminar = document.getElementById("btnEliminar");
+    btnEliminar.addEventListener("click", Eliminar);
+
+    var btnModificar = document.getElementById("btnModificar");
+    btnModificar.addEventListener("click", Modificar);
+
+    var btnAgregar = document.getElementById("btnAgregar");
+    btnAgregar.addEventListener("click", Agregar);
 }
 
-function peticionPostEditar(metodo, url, funcion) {
-    spinner.hidden = false;
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);   
-    http.setRequestHeader("Content-Type","application/json");
-
-    do{ nombre.className = "inputError"; }
-    while(document.getElementById("nombre").value.length <= 3);
-
-    do{ apellido.className = "inputError"; }
-    while(document.getElementById("apellido").value.length <= 3);
-
-    var data = {
-        id:document.getElementById("id").value,
-        nombre:document.getElementById("nombre").value,
-        apellido:document.getElementById("apellido").value,
-        fecha:document.getElementById("fecha").value,
-        sexo:document.querySelector('input[name="gender"]:checked').value
-    };
-    http.send(JSON.stringify(data));
-}
-
-function peticionPostEliminar(metodo, url, funcion) {
-    spinner.hidden = false;
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);
-    http.setRequestHeader("Content-Type","application/json");
-    var data = {id:document.getElementById("id").value};
-    http.send(JSON.stringify(data));
-}
-
-function peticionPostNueva(metodo, url, funcion) {
-    spinner.hidden = false;
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);
-    http.setRequestHeader("Content-Type","application/json");
-
-    do{ nombre.className = "inputError"; }
-    while(document.getElementById("nombre").value.length <= 3);
-
-    do{ apellido.className = "inputError"; }
-    while(document.getElementById("apellido").value.length <= 3);
-
-    var data = {
-        nombre:document.getElementById("nombre").value,
-        apellido:document.getElementById("apellido").value,
-        fecha:document.getElementById("fecha").value,
-        sexo:document.querySelector('input[name="gender"]:checked').value
-    };
-    http.send(JSON.stringify(data));
-}
-
-function Log() {
-    RealizarLogin("POST","http://localhost:3000/login", login);
-}
-
-function RealizarLogin(metodo, url, funcion) {
-    http.onreadystatechange = funcion;
-    http.open(metodo, url, true);
-    http.setRequestHeader("Content-Type","application/json");
-    var data = {email:email.value, password:pass.value};
-    http.send(JSON.stringify(data));
-}
-
-function login() {
+function GetGrilla() {
     if (http.readyState == 4 && http.status == 200) {
-        loguear(JSON.parse(http.responseText)); 
+        armarGrilla(JSON.parse(http.responseText));
+        HideSpinner();
     }
-}
-
-function loguear(login) {
-    console.log(login.type);
-}
-
-function personas() {
-    if (http.readyState == 4 && http.status == 200) {
-        armarGrilla(JSON.parse(http.responseText)); 
-        spinner.hidden = true;            
-    }
-}
-
-function editar() {
-    if (http.readyState == 4 && http.status == 200) { 
-        modificar(JSON.parse(http.responseText));
-        spinner.hidden = true; 
-    }
-}
-
-function eliminarPersona() {
-    if (http.readyState == 4 && http.status == 200) {
-        eliminar(JSON.parse(http.responseText));
-        spinner.hidden=true; 
-    }
-}
-
-function nueva() {
-    if (http.readyState == 4 && http.status == 200) {
-        agregar(JSON.parse(http.responseText));
-        spinner.hidden = true; 
-    }
-}
-
-function pedirPersonasGet() {
-    peticionGet("GET","http://localhost:3000/personas", personas);
-}
-
-function nuevaPersonaPostConParametros() {
-    peticionPostNueva("POST","http://localhost:3000/nueva", nueva);
-}
-
-function editarPersonaPost() {
-    peticionPostEditar("POST","http://localhost:3000/editar", editar);
-}
-
-function eliminarPersonaPost() {
-    peticionPostEliminar("POST","http://localhost:3000/eliminar", eliminarPersona);
 }
 
 function armarGrilla(jsonObj) {
-    var tabla = document.getElementById("tabla");
+    tCuerpo = document.getElementById("tCuerpo");
 
-    for(var i = 0; i < jsonObj.length; i++) {
-        var tr = document.createElement("tr");
-        var td = document.createElement("td");
+    for (var i = 0; i < jsonObj.length; i++) {
+        var row = document.createElement("tr");
+        row.setAttribute("idpersonas", jsonObj[i].id); 
 
-        td.appendChild(document.createTextNode(jsonObj[i].nombre));
-        tr.appendChild(td);
+        var cel0 = document.createElement("td");
+        var text0 = document.createTextNode(jsonObj[i].id);
+        cel0.appendChild(text0);
+        row.appendChild(cel0);
+        cel0.hidden = true;
 
-        var td2 = document.createElement("td");
-        td2.appendChild(document.createTextNode(jsonObj[i].apellido));
-        tr.appendChild(td2);
+        var cel1 = document.createElement("td");
+        var text1 = document.createTextNode(jsonObj[i].nombre);
+        cel1.appendChild(text1);
+        row.appendChild(cel1);
 
-        var td3 = document.createElement("td");
-        td3.appendChild(document.createTextNode(jsonObj[i].fecha));
-        tr.appendChild(td3);
+        var cel2 = document.createElement("td");
+        var text2 = document.createTextNode(jsonObj[i].apellido);
+        cel2.appendChild(text2);
+        row.appendChild(cel2);
 
-        var td4 = document.createElement("td");
-        td4.appendChild(document.createTextNode(jsonObj[i].sexo));
-        tr.appendChild(td4); 
+        var cel3 = document.createElement("td");
+        var text3 = document.createTextNode(jsonObj[i].fecha);
+        cel3.appendChild(text3);
+        row.appendChild(cel3);
 
-        var td5 = document.createElement("td");
-        td5.appendChild(document.createTextNode(jsonObj[i].id));
-        td5.hidden = true;
-        tr.appendChild(td5);
+        var cel4 = document.createElement("td");
+        var text4 = document.createTextNode(jsonObj[i].sexo);
+        cel4.appendChild(text4);
+        row.appendChild(cel4);
 
-        tr.addEventListener("dblclick", abrirRecuadro);
-        tabla.appendChild(tr);
-    }
-}
-        
-function abrirRecuadro(e) {
-    var recuadro = document.getElementById("contenedorAgregar");
-    contenedorAgregar = recuadro;
-    recuadro.hidden = false;
-    var tr = e.target.parentNode;
-    globalTr=tr;//la solucion estaba aca
-    document.getElementById("nombre").value = tr.childNodes[0].innerHTML;
-    document.getElementById("apellido").value = tr.childNodes[1].innerHTML;
-    document.getElementById("fecha").value = tr.childNodes[2].innerHTML;
-    document.getElementById("id").value = tr.childNodes[4].innerHTML;
-            
-    if (tr.childNodes[3].innerHTML == "Female") {
-        document.getElementById("female").checked = true;
-        document.getElementById("male").checked = false;
-    }
-    else if (tr.childNodes[3].innerHTML == "Male") {
-        document.getElementById("male").checked = true;
-        document.getElementById("female").checked = false;
+        tCuerpo.appendChild(row);
     }
 }
 
-function modificar(persona) {
-    globalTr.childNodes[0].innerHTML = persona.nombre;
-    globalTr.childNodes[1].innerHTML = persona.apellido;
-    globalTr.childNodes[2].innerHTML= persona.fecha;
-    globalTr.childNodes[3].innerHTML = persona.sexo;
-    spinner.hidden=true;
+function GetPersona(e) {
+    console.log(e.target.parentNode);
+    trClick = e.target.parentNode;
+    document.getElementById("nombre").value = trClick.childNodes[1].innerHTML;
+    document.getElementById("apellido").value = trClick.childNodes[2].innerHTML;
+    document.getElementById("fecha").value = trClick.childNodes[3].innerHTML;
+
+    rowGlobal = trClick;
+    if (trClick.childNodes[4].innerHTML == "Femenino") {
+        document.getElementById("femenino").checked = true;
+    } else {
+        document.getElementById("masculino").checked = true;
+    }
+    ShowHeader();
 }
 
-function agregar(persona){
-    var tabla = document.getElementById("tabla");
-    var tr = document.createElement("tr");
-    var td = document.createElement("td");
+function Eliminar(e) {
+    ShowSpinner();
+    HideHeader();
     
-    td.appendChild(document.createTextNode(persona.nombre));
-    tr.appendChild(td);
-
-    var td2 = document.createElement("td");
-    td2.appendChild(document.createTextNode(persona.apellido));
-    tr.appendChild(td2);
-
-    var td3 = document.createElement("td");
-    td3.appendChild(document.createTextNode(persona.fecha));
-    tr.appendChild(td3);
-
-    var td4 = document.createElement("td");
-    td4.appendChild(document.createTextNode(persona.sexo));
-    tr.appendChild(td4); 
-
-    var td5 = document.createElement("td");
-    td5.appendChild(document.createTextNode(persona.id));
-    td5.hidden=true;
-            
-    tr.addEventListener("dblclick", abrirRecuadro); 
-    tabla.appendChild(tr);
+    httpPost.onreadystatechange = function () {
+        if (httpPost.readyState == 4 && http.status == 200) {
+            rowGlobal.remove();
+            HideSpinner();
+        }
+    }
+    httpPost.open("POST", "http://localhost:3000/eliminar", true);
+    httpPost.setRequestHeader("Content-Type", "application/json");
+    
+    var json = { "id": rowGlobal.getAttribute("idpersonas") };
+    httpPost.send(JSON.stringify(json));
 }
 
-function eliminar() {
-    globalTr.remove();
+function Agregar(e) {
+    var httpPost = new XMLHttpRequest();
+    var data = Persona_GetElementsById();
+    
+    if (CheckFecha(data[2])) {
+        if (CheckName(data[0]) && CheckSexo(data[3], data[4])) {
+            if(CheckSurname(data[1])) {
+                if(confirm("Desea efectuar los cambios?")) {
+                    ShowSpinner();
+                    HideHeader();
+                    
+                    httpPost.onreadystatechange = function () {
+                        if (httpPost.readyState == 4 && http.status == 200) {
+                            HideSpinner();
+                        }
+                    }
+                    httpPost.open("POST", "http://localhost:3000/nueva", true);
+                    httpPost.setRequestHeader("Content-Type", "application/json");
+                    
+                    if (femenino.checked == true) {
+                        var json = { 
+                            "id": GetNewId(),
+                            "nombre": data[0], 
+                            "apellido": data[1], 
+                            "fecha": data[2], 
+                            "sexo": "Femenino" 
+                        };
+                    } 
+                    else if (masculino.checked == true) {
+                        var json = { 
+                            "id": GetNewId(), 
+                            "nombre": data[0], 
+                            "apellido": data[1], 
+                            "fecha": data[2],
+                            "sexo": "Masculino"
+                        };
+                    }
+                    httpPost.send(JSON.stringify(json));
+                } 
+            }
+            else {
+                Apellido_ClassError();
+                return;
+            }
+        }
+        else {
+            Nombre_ClassError();
+            return;
+        }
+    }
+     else {
+        fecha_ClassError();
+        return;
+    }
 }
 
-function CerrarRecuadro() {
-    var recuadro = document.getElementById("contenedorAgregar");
-    recuadro.hidden = true;
+function Modificar(e) {
+    var httpPost = new XMLHttpRequest();
+    var data = Persona_GetElementsById();
+
+    if (CheckFecha(data[2])) {
+        if (CheckName(data[0]) && CheckSexo(data[3], data[4])) {
+            if(CheckSurname(data[1])) {
+                if(confirm("Desea efectuar los cambios?")) {
+                    ShowSpinner();
+                    HideHeader();
+        
+                    httpPost.onreadystatechange = function () {
+                        if (httpPost.readyState == 4 && http.status == 200) {
+                            rowGlobal.childNodes[1].innerHTML = data[0];
+                            rowGlobal.childNodes[2].innerHTML = data[1];
+                            rowGlobal.childNodes[3].innerHTML = data[2];
+        
+                            if (femenino.checked == true) {
+                             rowGlobal.childNodes[4].innerHTML = "Femenino";
+                            } 
+                            else if (masculino.checked == true) {
+                                rowGlobal.childNodes[4].innerHTML = "Masculino"
+                            }
+                            HideSpinner();
+                        }
+                    }
+                    httpPost.open("POST", "http://localhost:3000/editar", true);
+                    httpPost.setRequestHeader("Content-Type", "application/json");
+        
+                    if (femenino.checked == true) {
+                        var json = { 
+                            "id": rowGlobal.getAttribute("idpersonas"),
+                            "nombre": data[0], 
+                            "apellido": data[1], 
+                            "fecha": data[2], 
+                            "sexo": "Femenino" 
+                        };
+                    } 
+                    else if (masculino.checked == true) {
+                        var json = { 
+                            "id": rowGlobal.getAttribute("idpersonas"), 
+                            "nombre": data[0], 
+                            "apellido": data[1], 
+                            "fecha": data[2],
+                            "sexo": "Masculino"
+                        };
+                    }
+                    httpPost.send(JSON.stringify(json));
+                } 
+            } 
+            else {
+                Apellido_ClassError();
+                return;
+            }
+        }
+        else {
+            Nombre_ClassError();
+            return;
+        } 
+    }
+    else {
+        fecha_ClassError();
+        return;
+    }
+}
+    
+function Persona_GetElementsById(){
+    var array = new Array();
+
+    array[0] = document.getElementById("nombre").value;
+    array[1] = document.getElementById("apellido").value;
+    array[2] = document.getElementById("fecha").value;
+    array[3] = document.getElementById("femenino");
+    array[4] = document.getElementById("masculino");
+
+    return array;
+}
+
+function HideSpinner(){
+    document.getElementById("spinner").hidden = true;
+}
+
+function ShowSpinner(){
+    document.getElementById("spinner").hidden = false;
+}
+
+function HideHeader(){
+    document.getElementById("contenedor").hidden = true;
+}
+
+function ShowHeader(){
+    document.getElementById("contenedor").hidden = false;
+}
+
+function obtenerFecha(fecha) {
+    let data = new Date();
+    var arrayfecha = fecha.split("-");
+
+    data.setFullYear(arrayfecha[0]);
+    data.setMonth(arrayfecha[1] - 1);
+    data.setDate(arrayfecha[2]);
+
+    return data;
+}
+
+function CheckFecha(fecha) {
+    return obtenerFecha(fecha) < Date.now();
+}
+
+function CheckName(nombre) {
+    return nombre.length > 3;
+}
+
+function CheckSurname(apellido) {
+    return apellido.length > 3;
+}
+
+function SetFormatDate(fecha){
+    var arrayfecha = fecha.split("-");
+    return arrayfecha[2] + "/" + arrayfecha[1] + "/" + arrayfecha[0];
+}
+
+function CheckSexo(masculino, femenino) {
+    return masculino.checked == true || femenino.checked == true;
+}
+
+function GetNewId() {
+    if (http.readyState == 4 && http.status == 200) {
+        jsonObj = JSON.parse(http.responseText);
+        return "" + jsonObj.length - 1;
+    }
+}
+
+function Nombre_ClassError(){
+    document.getElementById("nombre").className = "classError";
+    alert("Nombre debe tener mas de 3 caracteres");
+}
+
+function Apellido_ClassError(){
+    document.getElementById("apellido").className = "classError";
+    alert("Apellido debe tener mas de 3 caracteres");
+}
+
+function fecha_ClassError(){
+    document.getElementById("fecha").className = "classError";
+    alert("La fecha debe ser menor al dia de hoy");
 }

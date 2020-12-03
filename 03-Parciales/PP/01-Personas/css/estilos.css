@@ -1,14 +1,15 @@
 #h1 {
-    width: 100%;
-    left: 25%;
-    right: 25%;
+    margin:auto;
+    font-weight: bold;
+    font-size: 35px;
+
     font-family: 'Courier New', Courier, monospace;/*fuente*/
     text-align: center;
     background-color: rgb(208, 226, 222);
 }
 
 #tabla { 
-    color: rgb(145, 151, 151);
+    color: rgb(0, 0, 0);
     background-color: gainsboro;
     border-collapse: collapse;  /*Los bordes de la tabla se pegarán (mejor aspecto) */
     border: none;
@@ -21,10 +22,11 @@
     z-index: -1; 
 }
 
-th {
+th{
     color: rgb(0, 0, 0);
     font: bolder;
     border: ridge;
+    font-style: oblique;
 }
 
 tr:nth-child(even){
@@ -38,60 +40,96 @@ tr:nth-child(even){
     padding-left: 20px;
 }
 
-#contenedorAgregar {
+/*Contenedor*/
+header {
+    background-color:  lightgray;
+    width: 50%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border-width: 0.3rem;
+    border-style: groove;
+    border-color: rgb(92, 91, 91,0.6);
     position: fixed;
-    flex-wrap: wrap; 
-    padding-left: 10px;
-    background: whitesmoke;
-    width: 35%;
-    font-size: 20px;
-    font-family: 'Courier New', Courier, monospace;
-    box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
-    top:25%; /*a 25 de arriba*/ 
-    left:25%; /*a 25 de la izquierda*/
-    right:25%;/*same derecha*/
-    z-index: 998;
+    top: 25%;
+    right: 25%;
+    left: 25%;
+    box-sizing: border-box; 
+    animation-name: aparecer;
+    animation-duration: 1.5s;
+}
+
+@keyframes aparecer {
+from{opacity: 0}
+to{opacity: 1}
+}
+
+@keyframes aparecer{
+    from {opacity: 0;}
+    to {opacity:1}
 }
 
 #nombre, #apellido {
-    width: 40%;
+    width: 75%;
 }
 
-.inputError{
+.classError{
     border: 2px solid red;
 }
 
-.inputSinError{
+.classSinError{
     border: 1px solid #ccc;
 }
 
-#cerrar {
-    background-color: red;
-    border: none;
-    color: white;
-    text-align: center;
-    font-size: 16px;
-    margin: 4px 4px;
+#fecha {
+    width: 32%;
     cursor: pointer;
-    width: 5%;
 }
 
-/*nota manejar la posicion desde los div, lo demas desde el boton*/
-#divCerrar {
-    display: flex;
-    justify-content: flex-end;
+#femenino, #masculino{
+    cursor: pointer;
+}
+
+input[type=text]{
+    padding:0.5rem 0.2rem;
+    margin:0.6rem;
+    width: 98%;
+    box-sizing: border-box;
+    align-content: center;
+} 
+
+input[type=radio],input[type=date],select{
+    padding:0.3rem;
+    margin:0.6rem;
+} 
+
+#btnCerrar {
+    border-radius: 10%;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.2rem;
+    font-size: 1.3rem;
+    text-align: center; 
+    background-color: rgb(226, 76, 76); 
+    text-decoration-color: silver;
+    color: rgb(235, 233, 233);
+    box-shadow: 0 0px 2px 2px rgba(0, 0, 0, 0.3) inset;
+    cursor: pointer;
+}
+
+#btnCerrar:hover{
+    background-color: red
 }
 
 #btnAgregar, #btnModificar, #btnEliminar {
-    border: none;
+    border-bottom: #ccc;
     color: white;
-    width: 30%;
+    width: 40%;
     text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
     cursor: pointer;
 }
 
-#divbotones {
+#divBotones {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -99,23 +137,34 @@ tr:nth-child(even){
 }
 
 #btnAgregar {
-    background-color: limegreen;
+    background-color: rgb(91, 216, 91);
+}
+
+#btnAgregar:hover{
+    background-color: rgb(69, 209, 44)
 }
 
 #btnModificar {
-    background-color: limegreen;
+    background-color: rgb(91, 216, 91);
+}
+
+#btnModificar:hover{
+    background-color: rgb(69, 209, 44)
 }
 
 #btnEliminar {
-    background-color: red;
+    background-color: rgb(226, 76, 76); 
 }
 
-#loader {
-    opacity: 0.5;
-    flex-wrap: wrap; 
-    position: fixed; 
-    top:10%;
-    text-align: center;
-    width: 100%;
-    z-index: 999;
+#btnEliminar:hover{
+    background-color: red
+}
+
+#spinner {
+    width: 50%;
+    opacity: 0.8;    
+    position: absolute; 
+    top:25%; /*a 25 de arriba*/ 
+    left:25%; /*a 25 de la izquierda*/
+    right:25%;/*same derecha*/
 }

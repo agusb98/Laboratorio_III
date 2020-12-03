@@ -1,0 +1,192 @@
+.container{
+    background-color: #D6E4F0;
+    position: fixed;
+    flex-direction: column;
+    bottom:  25%;
+    left:  25%;
+    right: 25%;
+    width: 40%;
+    height: 60%;
+
+    padding: 20px;
+    border-radius: 0.5rem;
+    box-shadow: 10px 10px 5px 0px rgb(87, 86, 86);
+    animation-name: openRemix;
+    animation-duration: 2s;
+}
+
+.btns{
+    bottom: 5%;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input[type=button]{
+    width: 50%;
+    color: white;
+    padding: 14px 25px;
+    margin: 10px;
+    border: none;
+    text-align: center;
+
+    border-radius: 4px;
+}
+
+input[type=button], select, input[type=checkbox]{
+    cursor: pointer;
+}
+
+input[type=button]:hover, select:hover{
+    opacity: 50%;
+}
+
+.btnContainer[type=button]{
+    width: 20%;
+    background-color: #1E56A0;
+    bottom: 100%;
+}
+
+.btnClose[type=button]{
+    margin: 0px;
+    padding: 0px 0px;
+    width: 1cm;
+    height: 1cm;
+    right: 0;
+    top: 0;
+    position: absolute;
+    background-color: rgb(207, 6, 6);
+    color: white;
+    border-radius: 0px;
+}
+
+.btnOpen[type=button], #btnProm {
+    background-color: #1E56A0;
+    color: white;
+    border: none;
+    border-radius: 10%;
+    box-shadow: 5px 5px 2px 0px rgb(87, 86, 86);
+}
+
+input[type=text], input[type=date], input[type=number], .fieldset, #tipo{
+    width: 95%;
+    padding: 0.85% 0.85%;
+    margin: 1%;
+}
+
+input[type=checkbox]{
+    padding: 0.85% 0.85%;
+    margin: 1%;
+}
+
+#tipo{
+    width: 98%;
+}
+
+#btnProm{
+    left: 0%;
+    width: 10%;
+}
+
+#btnOpen{
+    top: 1%;
+    right: 1%;
+    position: fixed;
+    width: 6%;
+}
+
+#btnCancel, #btnDelete{
+    background-color: rgb(209, 36, 36);
+}
+
+#btnDelete{
+    width: 50%;
+}
+
+#btnDelete, #btnEdit{
+    cursor: pointer;
+    border: none;
+}
+
+#btnDelete:hover, #btnEdit:hover{
+    opacity: 79%;
+}
+
+@keyframes open{
+    from{
+        width: 0%;
+        height: 0%;
+    }
+    to{
+        width: 50%;
+        height: 25%;
+    }
+}
+
+@keyframes openRemix{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+#table, #filterTable{ 
+    width: 80%;
+    margin: auto;
+    border-collapse: collapse;
+    background-color: rgb(201, 228, 221);
+}
+
+th,td{
+    text-align: left;
+    padding: 2%;
+}
+
+th{
+    background-color: rgb(60, 146, 126);
+    color: rgb(240, 250, 240);
+}
+
+tr:nth-child(even){
+    background-color: rgb(153, 206, 194);
+}
+
+body{
+    background-color: rgb(192, 247, 192);
+}
+
+#h1 {
+    width: 100%;
+    left: 25%;
+    right: 25%;
+    font-family: 'Courier New', Courier, monospace;
+    text-align: center;
+}
+
+#filter, #promText{
+    background-color: rgb(60, 146, 126);
+    width: 10%;
+    padding: 8px 8px;
+    margin: 8px;
+}
+
+#promText{
+    width: 8.8%;
+    cursor: auto;
+}
+
+.classOk{
+    border: 1px solid #cccccc;
+}
+
+.classError{
+    border: 1px solid red;
+}

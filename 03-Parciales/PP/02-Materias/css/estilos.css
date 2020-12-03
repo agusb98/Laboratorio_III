@@ -2,19 +2,17 @@
     margin:auto;
     font-weight: bold;
     font-size: 35px;
-
     font-family: 'Courier New', Courier, monospace;/*fuente*/
     text-align: center;
-    background-color: rgb(208, 226, 222);
 }
 
 #tabla { 
-    color: rgb(145, 151, 151);
+    color: rgb(0, 0, 0);
     background-color: gainsboro;
     border-collapse: collapse;  /*Los bordes de la tabla se pegarán (mejor aspecto) */
     border: none;
-    padding: 10px;
-    padding-left: 20px;
+    padding: 0.625rem;
+    padding-left: 1.25rem;
     font-family: 'Courier New', Courier, monospace;/*fuente*/
     text-align: center;/*alineacion del texto*/
     width: 100%; /*cuanto quiero que ocupe de la pantalla 50%*/   
@@ -25,89 +23,117 @@
 th{
     color: rgb(0, 0, 0);
     font: bolder;
-    border: ridge;
+    font-style: oblique;
+    background-color: rgb(129, 202, 185);
 }
 
 tr:nth-child(even){
-    background-color: rgb(208, 226, 222);
+    background-color: rgb(119, 199, 182);
 }
 
 #th, td{
     border-collapse: collapse;  /*Los bordes de la tabla se pegarán (mejor aspecto) */
     border: none;
-    padding: 10px;
-    padding-left: 20px;
+    padding: 0.625rem;
+    padding-left: 1.25rem;
 }
 
-#contenedorAgregar {
+/*Contenedor*/
+header {
+    background-color:  lightgray;
+    width: 50%;
+    padding: 1rem;
+    border-radius: 1.25rem 1.25rem 1.25rem 1.25rem;
+    -moz-border-radius: 1.25rem 1.25rem 1.25rem 1.25rem;
+    -webkit-border-radius: 1.25rem 1.25rem 1.25rem 1.25rem;
+    border: 0px solid #000000;  
     position: fixed;
-    flex-wrap: wrap; 
-    padding-left: 10px;
-    background: whitesmoke;
-    width: 35%;
-    font-size: 20px;
-    font-family: 'Courier New', Courier, monospace;
-    box-shadow: 12px 12px 5px 0px rgba(0,0,0,0.75);
-    top:25%; /*a 25 de arriba*/ 
-    left:25%; /*a 25 de la izquierda*/
-    right:25%;/*same derecha*/
-    z-index: 998;
+    top: 15%;
+    right: 25%;
+    left: 25%;
+    box-sizing: border-box; 
     animation-name: aparecer;
-    animation-duration: 1s; 
+    animation-duration: 1.5s;
 }
 
-@keyframes aparecer{
-    from {opacity: 0;}
-    to {opacity:1}
+@keyframes aparecer {
+    from{opacity: 0}
+    to{opacity: 1}
 }
 
-#materia {
-    width: 59%;
-}
-
-.inputError{
+.classError{
     border: 2px solid red;
 }
 
-.inputSinError{
+.classSinError{
     border: 1px solid #ccc;
 }
 
-#cuatrimestre {
-    width: 52%;
+select {
+    background-color: rgb(147, 216, 195);
+    width: 100%;
+    padding:0.5rem 0.2rem;
 }
 
-#fechaFinal {
-    width: 59%;
+#fechaFinal{
+    width: 100%;
+    padding:0.5rem 0.2rem;
 }
 
-#btnCerrar {
-    background-color: red;
-    border: none;
-    color: white;
-    text-align: center;
-    font-size: 16px;
-    margin: 4px 4px;
+input[type=text]{
+    padding:0.5rem 0.2rem;
+    box-sizing: border-box;
+    align-content: center;
+    width: 100%;
+    margin-bottom:0.3rem;
+} 
+
+input[type=button]{
     cursor: pointer;
-    width: 5%;
+    text-decoration: none;
+    border: 0rem solid #000000;
+    padding: 0.625rem;
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #ffffff;
+    border-radius: 0.375rem;
+    font-size: 100%;
 }
 
-/*nota manejar la posicion desde los div, lo demas desde el boton*/
-#divCerrar {
+input[type=button]:hover{
+    opacity: 50%;
+}
+
+#fechaFinal{
+    cursor: pointer;
+}
+
+.containerBtnCerrar {
     display: flex;
     justify-content: flex-end;
 }
 
-#btnAgregar, #btnModificar, #btnEliminar {
-    border: none;
-    color: white;
-    width: 30%;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
+#btnCerrar {
+    border-radius: 10%;
+    border: 0px solid #000000;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.2rem;
+    font-size: 1.3rem;
+    text-align: center; 
+    background-color: red;
+    text-decoration-color: silver;
+    color: rgb(235, 233, 233);
+    box-shadow: 0 0px 2px 2px rgba(0, 0, 0, 0.3) inset;
 }
 
-#divbotones {
+.divBtnAgregar {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#divBotones {
+    margin-top:1rem;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -115,23 +141,24 @@ tr:nth-child(even){
 }
 
 #btnAgregar {
-    background-color: limegreen;
+    background-color: rgb(41, 16, 184);
 }
 
 #btnModificar {
-    background-color: limegreen;
+    background-color: rgb(69, 209, 44);
 }
 
 #btnEliminar {
     background-color: red;
 }
 
-#loader {
-    opacity: 0.5;
-    flex-wrap: wrap; 
-    position: fixed; 
-    top:10%;
-    text-align: center;
+#spinner {
+    position: fixed;
+    left: 0px;
+    top: 0px;
     width: 100%;
-    z-index: 999;
+    height: 100%;
+    z-index: 9999;
+    background: rgb(249,249,249);
+    opacity: .8;
 }

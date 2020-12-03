@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperatorio PP</title>
+    <link rel="stylesheet" href="css/estilos.css" />
+    <script src="clases/js/Vehiculo.js"></script>
+    <script src="clases/js/Auto.js"></script>
+    <script src="clases/js/Camioneta.js"></script>
+    <script src="Funciones.js"></script>
+</head>
+<body>
+    <input type="button" value="Alta" id="btnOpen" class="btnOpen">
+
+    <div class="container" id="container" hidden>
+        <h3>Alta Vehiculo</h3>
+        <input type="button" value="X" id="btnClose" class="btnClose"/>
+        <div hidden><label>id: </label></div>
+        <input type="text" id="idText" name="id" readonly="readonly" disabled=true hidden>
+        <label for="marca">Marca</label> 
+        <input type="text" name="" class="classOk" placeholder="ingrese marca ..." id="marcaText">
+        <label for="modelo">Modelo</label> 
+        <input type="text" name="" class="classOk" placeholder="ingrese modelo ..." id="modeloText">
+        <label for="precio">Precio</label> <br>
+        <input type="text" name="" class="classOk" placeholder="ingrese precio ..." id="precioText">
+        
+        <label for="tipo">Tipo</label> <br>
+        <select name="select" id="tipo">
+            <option value="Auto">Auto</option>
+            <option value="Camioneta">Camioneta</option>
+        </select> 
+        
+        <div id="Auto">
+            <label>Cantidad de Puertas</label>
+            <input type="text" name="" class="classOk" placeholder="ingrese cantidad de puertas ..." id="cantPuertasText">
+        </div>
+        <div id="Camioneta">
+            <label for="4x4">4x4</label>
+            <input type="checkbox" id="4x4Check">
+        </div>       
+        <div class="btns">    
+            <input type="button" value="Cancel" id="btnCancel" class="btnContainer"/>
+            <input type="button" value="Clear" id="btnClear" class="btnContainer"/>
+            <input type="button" value="Add" id="btnAdd" class="btnContainer"/>
+        </div>
+    </div>
+
+    <label>Filtrar por:</label>
+    <select name="selectFilter" id="filter" enable>
+        <option value="Todos" selected>Todos</option>
+        <option value="Auto">Auto</option>
+        <option value="Camioneta">Camioneta</option>
+    </select><br>
+
+    <label>Promedio:</label> 
+    <input type="text" name="promedio" id="promText" disabled>
+    <div id="divCalcProm">
+        <input type="button" value="Promedio" id="btnProm" name="btnProm">
+    </div><br>
+    
+    <div class="fields">
+        <label>Tildar los campos a mostrar:</label><br>
+            <input type="checkbox" id="idCheck" checked></input>
+            <label>Id</label>
+            <input type="checkbox" id="marcaCheck" checked></input>
+            <label>Marca</label>
+            <input type="checkbox" id="modeloCheck" checked></input>
+            <label>Modelo</label>
+            <input type="checkbox" id="precioCheck" checked></input>
+            <label>Precio</label>
+        </div> 
+    </div>
+
+    <h1 id="h1">Lista de Vehiculos</h1>
+    <table id="table">
+        <thead>
+            <th name="idTh">Id</th>
+            <th name="marcaTh">Marca</th>
+            <th name="modeloTh">Modelo</th>
+            <th name="precioTh">Precio</th>
+            <th name="accionTh">Accion</th>
+        </thead>
+        <tbody id="body"></tbody>
+    </table>
+    <table id="filterTable"hidden=true >
+        <thead>
+            <th name="idTh">Id</th>
+            <th name="marcaTh">Marca</th>
+            <th name="modeloTh">Modelo</th>
+            <th name="precioTh">Precio</th>
+            <th name="deleteTh">Delete</th>
+            <th name="accionTh">Accion</th>
+        </thead>
+        <tbody id="body"></tbody>
+    </table>
+</body>
+</html>

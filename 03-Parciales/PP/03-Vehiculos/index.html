@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperatorio PP</title>
+    <link rel="stylesheet" href="./css/estilo.css">
+    <script src="./js/funciones.js"></script>
+</head>
+<body>
+    <div class="spinner" id="spinner" hidden></div>
+
+    <input type="button" value="Open" id="btnOpen" class="btnOpen">
+
+    <div class="container" id="divContainer" hidden>
+        <h3>Cargar nuevo auto</h3>
+        <input type="button" value="X" id="btnClose" class="btnClose"/>
+        <input type="text" id="idAuto" hidden >
+        <label for="marca">Marca</label> 
+        <input type="text" name="" placeholder="Ingresa la marca ..." class="inpuSinError" id="txtMarca">
+        <label for="modelo">Modelo</label> 
+        <input type="text" name="" placeholder="Ingresa el modelo ..." class="inpuSinError" id="txtModelo">
+        
+        <label for="año">Año</label> <br>
+        <select name="año" id="slcAño" class="slc">
+        </select>
+        
+        <div class="btns">    
+            <input type="button" value="Save" id="btnSave" class="btnContainer"/>
+        </div>
+    </div>
+
+    <h2>Lista de Autos</h2>
+    <table id="tableCars">
+        <thead>
+            <tr>
+                <th hidden=false id="tableId">id</th>
+                <th>Marca</th>
+                <th>Modelo</th>
+                <th>año</th>
+                <th hidden id="idTable">Id</th>
+            </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+    </table>
+</body>
+</html>

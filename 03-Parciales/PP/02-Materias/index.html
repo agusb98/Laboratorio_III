@@ -1,63 +1,61 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title> Parcial tomado en el 2020</title>
-        <link rel="stylesheet" href="css/estilos.css"/> 
-        <script type="text/javascript" src="js/funciones.js" ></script>
-    </head>
-    <body>
-        <div class="container-fluid" id="contBtn" >
-            <h1 id="h1">Lista de Materias</h1> 
-            <br>  
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP_laboratorio-III_BAEZ-NUÑEZ-LEANDRO</title>
+    <script src="js/funciones.js"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="spinner" id="spinner" hidden>
+        <img src="./img/spinner.gif" alt="spinner" id="spinner" class="imagen">
+    </div>
+    <header id="contenedor" hidden>
+        <div id="divCerrar" class="containerBtnCerrar">
+            <input type="button" value="X" id="btnCerrar"/>
         </div>
-        
+        <nav id="cuadro">
+        <div id=id hidden></div>
+            <label for="name">Nombre</label>
+            <input type="text" name="nombre" id="nombre" class="classSinError classError"><br/><br/>
+            <label for="cuatrimestre">Cuatrimestre</label>
+            <select id="cuatrimestre" class="classSinError classError" disabled>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+            </select><br><br/>
+            <label for="date">Fecha Final</label>
+            <input type="date" id="fechaFinal" min="25/10/2020" class="classSinError classError"><br/><br/>
+            <label for="turno">Turno</label>
+            <div>
+                <input type="radio" id="mañana" name="turno" value="Mañana"/>
+                <label for="Mañana">Mañana</label><br>
+                <input type="radio" id="noche" name="turno" value="Noche"/>
+                <label for="Noche">Noche</label>
+            </div><br>
+            <div id="divBotones">
+                <input type="button" value="Modificar" id="btnModificar"/>
+                <input type="button" value="Eliminar" id="btnEliminar"/>
+                <input type="button" value="Agregar" id="btnAgregar"/>
+            </div>
+        </nav>
+    </header>
+    <section>
         <table id="tabla">
-            <tr>
-                <th>Nombre</th>
-                <th>Cuatrimestre</th>
-                <th>Fecha Final</th>
-                <th>Turno</th>
-                <th style="display:none">ID</th>
-            </tr>
+            <h1 id="h1">Lista de Materias</h1><br>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Cuatrimestre</th>
+                    <th>Fecha Final</th>
+                    <th>Turno</th>
+                </tr>
+            </thead>
+            <tbody id="tCuerpo">
+            </tbody>
         </table>
-        <div class="container-fluid" id="contenedorAgregar" hidden=true>
-            <div id="divCerrar">
-                <input type="button" value="x" id="btnCerrar" name="cerrar">
-                <br>
-            </div>
-            <div id="divNombre">
-                Nombre:
-                <input type="text" id="nombre" name="nombre" class="inputSinError inputError">
-            </div>
-                Cuatrimestre:
-            <div id="divCuatrimestre">
-                <input type="select" id="cuatrimestre" name="cuatrimestre" disabled="true">
-            </div>
-            <div id="divFecha">
-                FechaFinal:
-                <input type="date" min="16/10/2020" id="fechaFinal" name="fechaFinal" class="inputError">
-            <br>
-            </div>
-            <div id="divTurno">
-                Turno:
-                <input type="radio" value="Noche" id="noche" name="gender">
-                <label for="noche">noche</label>
-                
-                <input type="radio" value="Mañana" id="mañana" name="gender">
-                <label for="mañana">mañana</label>
-            </div>
-            <div id="divId">
-                <input type="hidden" id="id" name="id" readonly="readonly">
-                <br>
-            </div>
-            <div id="divbotones">
-                <input type="button" value="Eliminar" id="btnEliminar" name="btnEliminar">
-                <input type="button" value="Modificar" id="btnModificar" name="btnModificar">
-            </div>
-        </div>
-        <div class="loader" id="loader" hidden=true>
-            <input type="image" src="img/spinner.gif">
-        </div>
-    </body>
+    </section>
+</body>
 </html>

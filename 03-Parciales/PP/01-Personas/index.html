@@ -1,74 +1,55 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title> Parcial tomado en el 2020</title>
-        <link rel="stylesheet" href="css/estilos.css"/> 
-        <script type="text/javascript" src="js/funciones.js" ></script>
-    </head>
-    <body>
-        <div class="container-fluid" id="contBtn" >
-            <h1 id="h1">Lista de Personas</h1>   
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PP_laboratorio-III_BAEZ-NUÑEZ-LEANDRO</title>
+    <script src="js/funciones.js"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="spinner" id="spinner" hidden>
+        <img src="./img/spinner.gif" alt="spinner" id="spinner" class="imagen">
+    </div>
+    <header id="contenedor" hidden>
+        <div class="botonCerrar">
+            <input type="button" value="X" id="btnCerrar"/>
         </div>
-        
+        <nav id="cuadro">
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="nombre" class="classSinError classError"><br/>
+            <label for="apellido">Apellido</label>
+            <input type="text" name="apellido" id="apellido" class="classSinError classError"><br/>
+            <label for="date">Fecha</label>
+            <input type="date" id="fecha" max="2020-10-29" class="classSinError classError"><br/>
+            <label for="sexo">Sexo</label>
+            <div>
+                <input type="radio" id="femenino" name="Turno" value="femenino"/>
+                <label for="Femenino">Femenino</label><br>
+                <input type="radio" id="masculino" name="Turno" value="masculino"/>
+                <label for="Masculino">Masculino</label>
+            </div><br>
+            <div id="divBotones">
+                <input type="button" value="Modificar" id="btnModificar"/>
+                <input type="button" value="Eliminar" id="btnEliminar"/>
+                <input type="button" value="Agregar" id="btnAgregar"/>
+            </div>
+        </nav>
+    </header>
+    <section>
         <table id="tabla">
-            <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Fecha</th>
-                <th>Sexo</th>
-                <th style="display:none">ID</th>
-            </tr>
+            <h1 id="h1">Lista de Personas</h1><br>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Fecha</th>
+                    <th>Sexo</th>
+                </tr>
+            </thead>
+            <tbody id="tCuerpo">
+            </tbody>
         </table>
-        <div class="container-fluid" id="contenedorAgregar" hidden=true>
-            <div id="divCerrar">
-                <input type="button" value="x" id="cerrar" name="cerrar">
-                <br>
-            </div>
-            <div id="divNombre">
-                Nombre:
-                <input type="text" id="nombre" name="nombre" class="inputSinError inputError">
-                <br>
-            </div>
-            <div id="divApellido">
-                Apellido:
-                <input type="text" id="apellido" name="apellido" class="inputSinError inputError">
-                <br>
-            </div>
-            <div id="divFecha">
-                Fecha:
-                <input type="date" max="2020-10-13" id="fecha" name="fecha" class="inputSinError inputError">
-            <br>
-            </div>
-            <div id="divSexo">
-                Sexo:
-                <input type="radio" value="Female" id="female" name="gender">
-                <label for="female">female</label>
-                
-                <input type="radio" value="Male" id="male" name="gender">
-                <label for="male">male</label>
-            </div>
-            <div id="divId">
-                <input type="hidden" id="id" name="id" readonly="readonly">
-                <br>
-            </div>
-            <div id="divbotones">
-                <input type="button" value="Eliminar" id="btnEliminar" name="btnEliminar">
-                <input type="button" value="Modificar" id="btnModificar" name="btnModificar">
-                <input type="button" value="Agregar" id ="btnAgregar">
-            </div>
-        </div>
-        <div class="loader" id="loader"hidden=true>
-            <input type="image" src="img/spinner.gif">
-        </div>
-        <div class = "login" id = "login">
-            Email:
-            <input type ="text" id="email">
-            <br>
-            Contraseña:
-            <input type = "text" id = "pass">
-            <br>
-            <input type = "button" id ="btnLogin" value = "Login">
-        </div>
-    </body>
+    </section>
+</body>
 </html>

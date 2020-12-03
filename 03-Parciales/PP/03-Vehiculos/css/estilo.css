@@ -1,0 +1,163 @@
+.container{
+    background-color: #D6E4F0;
+    position: fixed;
+    flex-direction: column;
+    bottom:  30%;
+    left:  30%;
+    width: 40%;     /*Ancho*/
+    height: 42%;    /*Largo*/
+
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 10px 10px 5px 0px rgb(87, 86, 86);
+    animation-name: openRemix;
+    animation-duration: 0.3s;
+}
+
+.btns{
+    bottom: 5%;
+    display: flex;
+    width: 100%;
+    flex-direction: row;
+    justify-content: center;
+    
+    /*display: flex;
+    flex-direction: row;
+    justify-content: space-between;*/
+    align-items: center;
+}
+
+input[type=button]{
+    width: 50%;
+    color: white;
+    padding: 14px 25px;
+    margin: 10px;
+    border: none;
+    text-align: center;
+
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type=button]:hover, select:hover{
+    opacity: 50%;
+}
+
+.btnContainer[type=button]{
+    width: 20%;
+    background-color: #1E56A0;
+    bottom: 100%;
+}
+
+.btnDelete[type=button]{
+    width: 20%;
+    background-color: rgb(207, 6, 6);
+    
+}
+
+.btnClose[type=button]{
+    margin: 0px;
+    padding: 0px 0px;
+    width: 1cm;
+    height: 1cm;
+    right: 0;
+    top: 0;
+    position: absolute;
+    background-color: rgb(207, 6, 6);
+    color: white;
+    border-radius: 0px;
+}
+
+.btnOpen[type=button]{
+    top: 1%;
+    right: 0;
+    position: fixed;
+    width: 5%;
+
+    background-color: #1E56A0;
+    color: white;
+    border: none;
+    border-radius: 10%;
+    box-shadow: 5px 5px 2px 0px rgb(87, 86, 86);
+}
+
+@keyframes open{
+    from{
+        width: 0%;
+        height: 0%;
+    }
+    to{
+        width: 50%;
+        height: 25%;
+    }
+}
+
+@keyframes openRemix{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+.spinner {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url('../img/spinner.gif') 50% 50% no-repeat rgb(249,249,249);
+    opacity: .8;
+}
+
+input[type=text], input[type=date], .fieldset{
+    width: 95%;
+    padding: 0.85% 0.85%;
+    margin: 1%;
+}
+
+.slc{
+    width: 98%;
+    padding: 0.99% 0.99%;
+    margin: 1%;
+    background-color: #ebecee;
+}
+
+select{
+    cursor: pointer;
+    background-color: rgb(35, 170, 138);
+    width: 50%;
+    padding: 8px 8px;
+    margin: 8px;
+}
+
+table{
+    width: 80%;
+    margin: auto;
+    border-collapse: collapse;
+    background-color: rgb(201, 228, 221);
+}
+
+th,td{
+    text-align: left;
+    padding: 2%;
+}
+
+th{
+    background-color: rgb(60, 146, 126);
+    color: rgb(240, 250, 240);
+}
+
+tr:nth-child(even){
+    background-color: rgb(153, 206, 194);
+}
+
+.inputError{
+    border: 2px solid red;
+}
+
+.inputSinError{
+    border: 1px solid rgb(0, 0, 0);
+}
