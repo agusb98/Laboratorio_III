@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RPP_laboratorio-III_BAEZ-NUÑEZ-LEANDRO</title>
+    <script src="js/funciones.js"></script>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+    <div class="spinner" id="spinner" hidden>
+        <img src="./img/spinner.gif" alt="spinner" id="spinner" class="imagen">
+    </div>
+    <header id="contenedor" hidden>
+        <div class="botonCerrar">
+            <input type="button" value="X" id="btnCerrar"/>
+        </div>
+        <nav id="cuadro"> <br>
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" id="textNombre" class="classSinError classError"><br/>
+            <label for="apellido">Apellido</label>
+            <input type="text" name="apellido" id="textApellido" class="classSinError classError"><br/>
+            <label for="localidad">Localidad</label> <br>
+        <select name="select" id="selectLocalidad">
+        </select> <br>
+            <label for="sexo">Sexo</label>
+            <div>
+                <input type="radio" id="femenino" name="Turno" value="femenino"/>
+                <label for="Femenino">Femenino</label><br>
+                <input type="radio" id="masculino" name="Turno" value="masculino"/>
+                <label for="Masculino">Masculino</label>
+            </div><br>
+            <div id="divBotones">
+                <input type="button" value="Modificar" id="btnModificar"/>
+            </div>
+        </nav>
+    </header>
+    <section>
+        <table id="tabla">
+            <h1 id="h1">Lista de Personas</h1><br>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Localidad</th>
+                    <th>Sexo</th>
+                </tr>
+            </thead>
+            <tbody id="tCuerpo">
+            </tbody>
+        </table>
+    </section>
+</body>
+</html>

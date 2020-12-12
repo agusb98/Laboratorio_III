@@ -1,0 +1,166 @@
+#h1 {
+    margin:auto;
+    font-weight: bold;
+    font-size: 35px;
+
+    font-family: 'Courier New', Courier, monospace;/*fuente*/
+    text-align: center;
+    background-color: rgb(208, 226, 222);
+}
+
+#tabla { 
+    color: rgb(0, 0, 0);
+    background-color: gainsboro;
+    border-collapse: collapse;  /*Los bordes de la tabla se pegarán (mejor aspecto) */
+    border: none;
+    padding: 10px;
+    padding-left: 20px;
+    font-family: 'Courier New', Courier, monospace;/*fuente*/
+    text-align: center;/*alineacion del texto*/
+    width: 100%; /*cuanto quiero que ocupe de la pantalla 50%*/   
+    justify-content: center;
+    z-index: -1; 
+}
+
+th,td{
+    text-align: left;
+    padding: 2%;
+}
+
+th{
+    background-color: rgb(60, 146, 126);
+    color: rgb(240, 250, 240);
+}
+
+tr:nth-child(even){
+    background-color: rgb(153, 206, 194);
+}
+
+/*Contenedor*/
+header {
+    background-color:  lightgray;
+    width: 50%;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border-width: 0.3rem;
+    border-style: groove;
+    border-color: rgb(92, 91, 91,0.6);
+    position: fixed;
+    top: 25%;
+    right: 25%;
+    left: 25%;
+    box-sizing: border-box; 
+    animation-name: aparecer;
+    animation-duration: 1.5s;
+}
+
+@keyframes aparecer {
+from{opacity: 0}
+to{opacity: 1}
+}
+
+@keyframes aparecer{
+    from {opacity: 0;}
+    to {opacity:1}
+}
+
+#nombre, #apellido {
+    width: 75%;
+}
+
+.classError{
+    border: 2px solid red;
+}
+
+.classSinError{
+    border: 1px solid #ccc;
+}
+
+#localidad {
+    width: 32%;
+    cursor: pointer;
+}
+
+#femenino, #masculino{
+    cursor: pointer;
+}
+
+input[type=text], #selectLocalidad{
+    padding:0.5rem 0.2rem;
+    margin:0.6rem;
+    width: 98%;
+    box-sizing: border-box;
+    align-content: center;
+} 
+
+input[type=radio],input[type=date]{
+    padding:0.3rem;
+    margin:0.6rem;
+} 
+
+#btnCerrar {
+    border-radius: 10%;
+    width: 2rem;
+    height: 2rem;
+    padding: 0.2rem;
+    font-size: 1.3rem;
+    text-align: center; 
+    background-color: rgb(226, 76, 76); 
+    text-decoration-color: silver;
+    color: rgb(235, 233, 233);
+    box-shadow: 0 0px 2px 2px rgba(0, 0, 0, 0.3) inset;
+    cursor: pointer;
+}
+
+#btnCerrar:hover{
+    background-color: red
+}
+
+#btnAgregar, #btnModificar, #btnEliminar {
+    border-bottom: #ccc;
+    color: white;
+    width: 40%;
+    text-align: center;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+#divBotones {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#btnAgregar {
+    background-color: rgb(91, 216, 91);
+}
+
+#btnAgregar:hover{
+    background-color: rgb(69, 209, 44)
+}
+
+#btnModificar {
+    background-color: rgb(91, 216, 91);
+}
+
+#btnModificar:hover{
+    background-color: rgb(69, 209, 44)
+}
+
+#btnEliminar {
+    background-color: rgb(226, 76, 76); 
+}
+
+#btnEliminar:hover{
+    background-color: red
+}
+
+#spinner {
+    position: fixed;
+    top: 0%;
+    right: 0%;
+    opacity: 0.6;
+    width: 100%;
+    height: 100%;
+}

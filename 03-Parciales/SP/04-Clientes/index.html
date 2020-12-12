@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recuperatorio SP - Baez Nuñez Leandro</title>
+    <link rel="stylesheet" href="css/estilos.css" />
+    <script src="clases/js/Persona.js"></script>
+    <script src="clases/js/Cliente.js"></script>
+    <script src="clases/js/Funciones.js"></script>
+</head>
+<body>
+    <input type="button" value="Agregar" id="btnOpen" class="btnOpen">
+
+    <div class="container" id="container" hidden>
+        <h3>Alta Persona</h3>
+        <input type="button" value="X" id="btnClose" class="btnClose"/>
+        <div hidden><label>id: </label></div>
+        <input type="text" id="textId" name="id" readonly="readonly" disabled=true hidden>
+        <label for="nombre">Nombre</label> 
+        <input type="text" name="" class="classOk" placeholder="ingrese nombre ..." id="textNombre">
+        <label for="apellido">Apellido</label> 
+        <input type="text" name="" class="classOk" placeholder="ingrese apellido ..." id="textApellido">
+        <label for="edad">Edad</label> <br>
+        <input type="text" name="" class="classOk" placeholder="ingrese edad ..." id="textEdad">
+        
+        <label for="sexo">Sexo</label> <br>
+        <select name="select" id="selectSexo">
+            <option value="Masculino" selected>Masculino</option>
+            <option value="Femenino">Femenino</option>
+        </select> 
+
+        <div class="btns">    
+            <input type="button" value="Cancel" id="btnCancel" class="btnContainer"/>
+            <input type="button" value="Clear" id="btnClear" class="btnContainer"/>
+            <input type="button" value="Add" id="btnAdd" class="btnContainer"/>
+        </div>
+    </div>
+
+    <label>Filtrar por:</label>
+    <select name="selectFilter" id="selectFilter" enable>
+        <option value="Todos" selected>Todos</option>
+        <option value="Masculino">Masculino</option>
+        <option value="Femenino">Femenino</option>
+    </select><br>
+
+    <label>Promedio:</label> 
+    <input type="text" name="promedio" id="textProm" disabled>
+    <div id="divProm">
+        <input type="button" value="Calcular Prom" id="btnProm" name="btnProm">
+        <input type="button" value="Limpiar" id="btnClearAll" name="btnClearAll">
+    </div>
+
+    
+    <div class="fields">
+        <label>Tildar los campos a mostrar:</label><br>
+            <input type="checkbox" id="checkId" checked></input>
+            <label>Id</label>
+            <input type="checkbox" id="checkNombre" checked></input>
+            <label>Nombre</label>
+            <input type="checkbox" id="checkApellido" checked></input>
+            <label>Apellido</label>
+            <input type="checkbox" id="checkEdad" checked></input>
+            <label>Edad</label>
+            <input type="checkbox" id="checkSexo" checked></input>
+            <label>Sexo</label>
+        </div> 
+    </div>
+
+    <h1 id="h1">Lista de Personas</h1>
+    <table id="table">
+        <thead>
+            <th name="thId">Id</th>
+            <th name="thNombre">Nombre</th>
+            <th name="thApellido">Apellido</th>
+            <th name="thEdad">Edad</th>
+            <th name="thSexo">Sexo</th>
+            <th name="thAccion">Accion</th>
+        </thead>
+        <tbody id="body"></tbody>
+    </table>
+    <table id="filterTable"hidden=true >
+        <thead>
+            <th name="thId">Id</th>
+            <th name="thNombre">Nombre</th>
+            <th name="thApellido">Modelo</th>
+            <th name="thEdad">Precio</th>
+            <th name="thSexo">Sexo</th>
+            <th name="deleteTh">Delete</th>
+            <th name="thAccion">Accion</th>
+        </thead>
+        <tbody id="body"></tbody>
+    </table>
+</body>
+</html>
